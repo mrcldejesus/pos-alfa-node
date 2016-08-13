@@ -8,41 +8,56 @@ const mongoose = require('mongoose');
     attack: Number,
     defense: Number
   }
+const pokemonSchema = new Schema(_schema);
+const PokemonModel = mongoose.model('Pokemon', pokemonSchema);
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('Listagem de usuarios');
-});
-
-query = {};
-
+  query = {};
       PokemonModel.find(query, function (err, data) {
-      if (err) return console.log('ERRO: ', err);
-      return console.log('Buscou:', data);
-      response.end(JSON.stringify(data));
+        if (err) return console.log('ERRO: ', err);
+        //return console.log('Buscou:', data);
+          res.json(data);
       })
 
-router.get('/:id', ())
+});
+router.get('/:id', function(req, res, next) {
+  query = {_id:req.params.id};
+      PokemonModel.findOne(query, function (err, data) {
+        if (err) return console.log('ERRO: ', err);
+        //return console.log('Buscou:', data);
+          res.json(data);
+      })
+
+});
+router.put('/:id', function(req, res, next) {
+  query = {_id:req.params.id};
+      let mod = req.body
+      PokemonModel.update(query, mod, function (err, data) {
+        if (err) return console.log('ERRO: ', err);
+        //return console.log('Buscou:', data);
+          res.json(data);
+      })
+
+});
+router.delete('/:id', function(req, res, next) {
+  query = {_id:req.params.id};
+      PokemonModel.delete(query, function (err, data) {
+        if (err) return console.log('ERRO: ', err);
+        //return console.log('Buscou:', data);
+          res.json(data);
+      })
+
+});
+router.put('/',function(req, res, next) {
+      let mod = req.body
+      PokemonModel.create(mod, function (err, data) {
+        if (err) return console.log('ERRO: ', err);
+        //return console.log('Buscou:', data);
+          res.json(data);
+      })
+
+});
 
 
-
-router.put('/:id', (req, res, next) =>{
-	query = {_id: req.params.id}
-
-	PokemonModel.update(query, mod, function (err, data)  {
-      if (err) throw new Error(err)
-      res.json(data)
-    })
-}
-
-router.delete('/:id', (req, res, next) =>{
-	query = {_id: req.params.id}
-
-	PokemonModel.delete(query, mod, function (err, data)  {
-      if (err) throw new Error(err)
-      res.json(data)
-    })
-}
-
-	
 module.exports = router;
