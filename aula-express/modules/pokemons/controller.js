@@ -1,30 +1,22 @@
 
 'use strict';
 const Model = require('./model');
+
 const Controller = {
-  create: function(data,callback) {
-    const model = new Model(data);
-    model.save(callback);
+  create: function(query,callback) {
+   Model.create(query,callback);
   },
   find: function(query,callback) {
     Model.find(query,callback);
   },
-  update: function(query, mod, options) {
-    options = options || {};
-    Model.update(query, mod, options, function (err, data) {
-      if (err) {
-        return console.log('ERRO: ', err);
-      }
-      return console.log('Alterou:', data);
-    });
+  findOne: function(query,callback) {
+    Model.findOne(query,callback);
   },
-  delete: function(query) {
-    Model.remove(query, function (err, data) {
-      if (err)  { 
-        return console.log('ERRO: ', err);
-      }
-      return console.log('Deletou:', data);
-    });
+ /* update: function(query, mod, callback) {
+    Model.update(query, mod, callback);
   },
+  remove: function(query, callback) {
+    Model.remove(query, callback)
+  },*/
 };
 module.exports = Controller;

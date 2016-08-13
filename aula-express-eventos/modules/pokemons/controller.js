@@ -1,3 +1,6 @@
+var events = require('events') 
+var eventEmitter = new events.EventEmitter()
+
 
 'use strict';
 const Model = require('./model');

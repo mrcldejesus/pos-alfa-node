@@ -1,17 +1,25 @@
 'use strict'
-//requisitando o model
-//const PokemonModel = require('./model');
-const controller = require('./controller');
-//criando o objeto controller
+
+const Model = require('Model')
+const events = require('events') 
+const eventEmitter = new events.EventEmitter()
+
+
+
 const CRUD ={
 	//definindo a operacao create
 	create: (req,res) => {
 		let mod = req.body
-		let cb = (err,data) => {			
+		let callback = (err,data) => {			
 				if (err) throw new Error(err)
 				res.json(data)
 		}
-		controller.create(mod,cb);
+		let obj = {
+			mod,
+			callback
+		}
+		eventEmitter.emit('crud:create', obj);  
+		//controller.create(mod,cb);
 	},
 
 	//definindo operacao listar todos

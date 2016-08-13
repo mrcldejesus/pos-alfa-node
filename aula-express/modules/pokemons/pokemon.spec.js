@@ -23,6 +23,21 @@ describe('Pokemon Controller', ()=> {
 		})
 	})
 
+	var msg1 = 'Quando iniciamos sem pokemons a lista deve vir vazia'
+	describe(msg1, () => {
+		it('Deve retornar array vazio', (done) => {
+			var query = {}
+			var callback = (err, data) => {
+				console.log('data', data)
+				assert.equal(null, err,  'Erro não é nulo')
+				assert.equal(0, data.length,  'Lista não veio vazia')
+				done()
+			}
+			Controller.findOne(query, callback)
+		})
+	})
+
+
 	describe('CREATE', () => {
 		it('No create o retorno deve ser o mesmo objeto enviado, adicionando _id', (done) => {
 			var mod = {
